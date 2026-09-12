@@ -1,0 +1,1482 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Toyin Portfolio Admin Dashboard"
+    >
+
+    <title>Admin Dashboard | Toyin</title>
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Boxicons -->
+    <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
+
+    <style>
+
+        /* =====================================================
+           ADMIN DASHBOARD
+           ===================================================== */
+
+        .admin-page {
+            min-height: 100vh;
+            background: var(--background-color);
+        }
+
+        .admin-header {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--section-color);
+        }
+
+        .admin-header-inner {
+            min-height: 75px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .admin-logo {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .admin-logo span {
+            color: var(--primary-color);
+        }
+
+        .admin-header-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.7rem;
+        }
+
+        .admin-icon-btn {
+            width: 42px;
+            height: 42px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: var(--background-color);
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .admin-icon-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .admin-logout {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.7rem 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background: transparent;
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .admin-logout:hover {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        .admin-main {
+            padding: 2.5rem 0 4rem;
+        }
+
+        .admin-welcome {
+            margin-bottom: 2rem;
+        }
+
+        .admin-welcome span {
+            color: var(--primary-color);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .admin-welcome h1 {
+            margin: 0.4rem 0;
+            color: var(--text-color);
+            font-size: 2rem;
+        }
+
+        .admin-welcome p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* =====================================================
+           STAT CARDS
+           ===================================================== */
+
+        .admin-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .admin-stat-card {
+            padding: 1.3rem;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            background: var(--section-color);
+        }
+
+        .admin-stat-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .admin-stat-icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            font-size: 1.3rem;
+        }
+
+        .admin-stat-card h2 {
+            margin-top: 1rem;
+            color: var(--text-color);
+            font-size: 1.8rem;
+        }
+
+        .admin-stat-card p {
+            margin-top: 0.2rem;
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        /* =====================================================
+           MESSAGE SECTION
+           ===================================================== */
+
+        .admin-message-section {
+            border: 1px solid var(--border-color);
+            border-radius: 18px;
+            overflow: hidden;
+            background: var(--section-color);
+        }
+
+        .admin-section-header {
+            padding: 1.3rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .admin-section-header h2 {
+            color: var(--text-color);
+            font-size: 1.15rem;
+        }
+
+        .admin-refresh {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.6rem 0.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 9px;
+            background: transparent;
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .admin-refresh:hover {
+            color: var(--primary-color);
+            border-color: var(--primary-color);
+        }
+
+        /* =====================================================
+           MESSAGE LIST
+           ===================================================== */
+
+        .admin-messages {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-message-item {
+            padding: 1.3rem 1.5rem;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: 0.3s ease;
+        }
+
+        .admin-message-item:last-child {
+            border-bottom: none;
+        }
+
+        .admin-message-item:hover {
+            background: var(--background-color);
+        }
+
+        .admin-message-item.unread {
+            border-left: 3px solid var(--primary-color);
+        }
+
+        .admin-message-info {
+            min-width: 0;
+        }
+
+        .admin-message-meta {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .admin-message-name {
+            color: var(--text-color);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        .admin-message-status {
+            padding: 0.25rem 0.55rem;
+            border-radius: 20px;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .status-new {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+        }
+
+        .status-read {
+            background: rgba(148, 163, 184, 0.15);
+            color: var(--text-light);
+        }
+
+        .status-replied {
+            background: rgba(34, 197, 94, 0.1);
+            color: #16a34a;
+        }
+
+        .status-archived {
+            background: rgba(245, 158, 11, 0.1);
+            color: #d97706;
+        }
+
+        .admin-message-subject {
+            color: var(--text-color);
+            font-weight: 500;
+            margin-bottom: 0.3rem;
+        }
+
+        .admin-message-preview {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            color: var(--text-light);
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+
+        .admin-message-email {
+            margin-top: 0.4rem;
+            color: var(--primary-color);
+            font-size: 0.75rem;
+        }
+
+        .admin-message-date {
+            color: var(--text-light);
+            font-size: 0.7rem;
+            white-space: nowrap;
+        }
+
+        .admin-message-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .admin-message-action {
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            border-radius: 9px;
+            background: transparent;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+
+        .admin-message-action:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        .admin-message-action.delete:hover {
+            border-color: #ef4444;
+            color: #ef4444;
+        }
+
+        /* =====================================================
+           EMPTY / LOADING
+           ===================================================== */
+
+        .admin-empty {
+            padding: 4rem 1.5rem;
+            text-align: center;
+        }
+
+        .admin-empty i {
+            display: block;
+            margin-bottom: 1rem;
+            color: var(--text-light);
+            font-size: 3rem;
+        }
+
+        .admin-empty h3 {
+            margin-bottom: 0.4rem;
+            color: var(--text-color);
+        }
+
+        .admin-empty p {
+            color: var(--text-light);
+            font-size: 0.85rem;
+        }
+
+        .admin-loading {
+            padding: 3rem;
+            text-align: center;
+            color: var(--text-light);
+        }
+
+        .admin-loading i {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-size: 2rem;
+        }
+
+        /* =====================================================
+           MESSAGE MODAL
+           ===================================================== */
+
+        .message-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 1000;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.55);
+        }
+
+        .message-modal.active {
+            display: flex;
+        }
+
+        .message-modal-content {
+            width: 100%;
+            max-width: 650px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 2rem;
+            border-radius: 20px;
+            background: var(--section-color);
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.2);
+        }
+
+        .message-modal-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .message-modal-header h2 {
+            color: var(--text-color);
+            font-size: 1.3rem;
+        }
+
+        .modal-close {
+            width: 38px;
+            height: 38px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+            border-radius: 9px;
+            background: transparent;
+            color: var(--text-color);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: #ef4444;
+        }
+
+        .message-detail {
+            margin-bottom: 1.2rem;
+        }
+
+        .message-detail-label {
+            display: block;
+            margin-bottom: 0.35rem;
+            color: var(--text-light);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .message-detail-value {
+            color: var(--text-color);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .message-detail-message {
+            padding: 1rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            background: var(--background-color);
+            white-space: pre-wrap;
+        }
+
+        .modal-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            padding-top: 1rem;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .modal-action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.7rem 0.9rem;
+            border: 1px solid var(--border-color);
+            border-radius: 9px;
+            background: transparent;
+            color: var(--text-color);
+            font-family: inherit;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+
+        .modal-action-btn:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 900px) {
+
+            .admin-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .admin-main {
+                padding-top: 1.5rem;
+            }
+
+            .admin-welcome h1 {
+                font-size: 1.5rem;
+            }
+
+            .admin-header-inner {
+                min-height: 65px;
+            }
+
+            .admin-logo {
+                font-size: 1.4rem;
+            }
+
+            .admin-logout span {
+                display: none;
+            }
+
+            .admin-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.7rem;
+            }
+
+            .admin-stat-card {
+                padding: 1rem;
+            }
+
+            .admin-stat-card h2 {
+                font-size: 1.4rem;
+            }
+
+            .admin-section-header {
+                padding: 1rem;
+            }
+
+            .admin-message-item {
+                padding: 1rem;
+                grid-template-columns: 1fr;
+            }
+
+            .admin-message-actions {
+                justify-content: flex-end;
+            }
+
+            .message-modal-content {
+                padding: 1.3rem;
+            }
+
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="admin-page">
+
+    <!-- =====================================================
+         HEADER
+         ===================================================== -->
+
+    <header class="admin-header">
+
+        <div class="container admin-header-inner">
+
+            <a
+                href="index.html"
+                class="admin-logo"
+            >
+                Toyin<span>.</span>
+            </a>
+
+            <div class="admin-header-actions">
+
+                <button
+                    type="button"
+                    class="admin-icon-btn"
+                    id="admin-theme-btn"
+                    aria-label="Toggle dark mode"
+                >
+                    <i class="bx bx-moon"></i>
+                </button>
+
+                <button
+                    type="button"
+                    class="admin-logout"
+                    id="admin-logout"
+                >
+                    <i class="bx bx-log-out"></i>
+                    <span>Logout</span>
+                </button>
+
+            </div>
+
+        </div>
+
+    </header>
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="admin-main">
+
+        <div class="container">
+
+            <div class="admin-welcome">
+
+                <span>Administration</span>
+
+                <h1>
+                    Dashboard
+                </h1>
+
+                <p>
+                    Manage enquiries and messages
+                    from your portfolio visitors.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 STATISTICS
+                 ================================================= -->
+
+            <div class="admin-stats">
+
+                <div class="admin-stat-card">
+
+                    <div class="admin-stat-top">
+
+                        <div>
+                            <p>Total Messages</p>
+                            <h2 id="total-messages">0</h2>
+                        </div>
+
+                        <div class="admin-stat-icon">
+                            <i class="bx bx-message-square-detail"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="admin-stat-card">
+
+                    <div class="admin-stat-top">
+
+                        <div>
+                            <p>New Messages</p>
+                            <h2 id="new-messages">0</h2>
+                        </div>
+
+                        <div class="admin-stat-icon">
+                            <i class="bx bx-envelope"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="admin-stat-card">
+
+                    <div class="admin-stat-top">
+
+                        <div>
+                            <p>Replied</p>
+                            <h2 id="replied-messages">0</h2>
+                        </div>
+
+                        <div class="admin-stat-icon">
+                            <i class="bx bx-check-double"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="admin-stat-card">
+
+                    <div class="admin-stat-top">
+
+                        <div>
+                            <p>Archived</p>
+                            <h2 id="archived-messages">0</h2>
+                        </div>
+
+                        <div class="admin-stat-icon">
+                            <i class="bx bx-archive"></i>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 MESSAGES
+                 ================================================= -->
+
+            <section class="admin-message-section">
+
+                <div class="admin-section-header">
+
+                    <h2>
+                        Contact Messages
+                    </h2>
+
+                    <button
+                        type="button"
+                        class="admin-refresh"
+                        id="refresh-messages"
+                    >
+                        <i class="bx bx-refresh"></i>
+                        Refresh
+                    </button>
+
+                </div>
+
+
+                <div
+                    class="admin-messages"
+                    id="admin-messages"
+                >
+
+                    <div class="admin-loading">
+
+                        <i class="bx bx-loader-alt bx-spin"></i>
+
+                        Loading messages...
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+</div>
+
+
+
+<!-- ==========================================
+     PROJECT MANAGEMENT
+========================================== -->
+
+<section class="admin-section" id="project-management">
+
+    <div class="admin-section-header">
+
+        <div>
+            <span class="admin-section-label">
+                Portfolio
+            </span>
+
+            <h2>Projects</h2>
+
+            <p>
+                Add, edit and manage the projects displayed
+                on your portfolio.
+            </p>
+        </div>
+
+        <button
+            type="button"
+            class="admin-btn admin-btn-primary"
+            id="add-project-btn"
+        >
+            <i class="bx bx-plus"></i>
+            Add Project
+        </button>
+
+    </div>
+
+
+    <div
+        class="projects-admin-container"
+        id="admin-projects"
+    >
+
+        <div class="admin-empty-state">
+
+            <i class="bx bx-folder-open"></i>
+
+            <h3>No projects yet</h3>
+
+            <p>
+                Add your first portfolio project to get started.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     PROJECT MODAL
+========================================== -->
+
+<div
+    class="admin-modal"
+    id="project-modal"
+    aria-hidden="true"
+>
+
+    <div class="admin-modal-content project-modal-content">
+
+        <div class="admin-modal-header">
+
+            <div>
+
+                <span class="admin-section-label">
+                    Portfolio Project
+                </span>
+
+                <h2 id="project-modal-title">
+                    Add Project
+                </h2>
+
+            </div>
+
+            <button
+                type="button"
+                class="admin-modal-close"
+                id="project-modal-close"
+                aria-label="Close project form"
+            >
+                <i class="bx bx-x"></i>
+            </button>
+
+        </div>
+
+
+        <form id="project-form">
+
+            <input
+                type="hidden"
+                id="project-id"
+            >
+
+
+            <!-- PROJECT INFORMATION -->
+
+            <div class="admin-form-grid">
+
+                <div class="admin-form-group">
+
+                    <label for="project-title">
+                        Project Title
+                    </label>
+
+                    <input
+                        type="text"
+                        id="project-title"
+                        placeholder="e.g. TrendSphere Media"
+                        maxlength="150"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="admin-form-group">
+
+                    <label for="project-category">
+                        Category
+                    </label>
+
+                    <select
+                        id="project-category"
+                        required
+                    >
+
+                        <option value="web">
+                            Web Development
+                        </option>
+
+                        <option value="design">
+                            Graphic / Digital Design
+                        </option>
+
+                        <option value="other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-form-group">
+
+                <label for="project-description">
+                    Short Description
+                </label>
+
+                <textarea
+                    id="project-description"
+                    rows="4"
+                    maxlength="500"
+                    placeholder="Briefly describe what this project does..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <div class="admin-form-group">
+
+                <label for="project-technologies">
+                    Technologies
+                </label>
+
+                <input
+                    type="text"
+                    id="project-technologies"
+                    maxlength="500"
+                    placeholder="HTML, CSS, JavaScript, Supabase"
+                >
+
+                <small class="project-field-help">
+                    Separate technologies with commas.
+                </small>
+
+            </div>
+
+
+            <!-- PROJECT IMAGE -->
+
+            <div class="admin-form-group">
+
+                <label for="project-image">
+                    Project Image
+                </label>
+
+                <input
+                    type="file"
+                    id="project-image"
+                    accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp"
+                >
+
+                <small class="project-field-help">
+                    JPG, PNG or WebP. Maximum size: 5MB.
+                </small>
+
+                <div
+                    class="project-image-preview"
+                    id="project-image-preview"
+                >
+
+                    <div class="project-image-preview-empty">
+
+                        <i class="bx bx-image"></i>
+
+                        <span>
+                            Project image preview
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- PROJECT LINKS -->
+
+            <div class="admin-form-grid">
+
+                <div class="admin-form-group">
+
+                    <label for="project-live-url">
+                        Live Website URL
+                    </label>
+
+                    <input
+                        type="url"
+                        id="project-live-url"
+                        placeholder="https://example.com"
+                    >
+
+                </div>
+
+
+                <div class="admin-form-group">
+
+                    <label for="project-github-url">
+                        GitHub URL
+                    </label>
+
+                    <input
+                        type="url"
+                        id="project-github-url"
+                        placeholder="https://github.com/username/project"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-form-group">
+
+                <label for="project-case-study-url">
+                    Case Study URL
+                </label>
+
+                <input
+                    type="url"
+                    id="project-case-study-url"
+                    placeholder="https://example.com/project-case-study.html"
+                >
+
+            </div>
+
+
+            <!-- PROJECT STATUS -->
+
+            <div class="project-status-options">
+
+                <label class="project-checkbox">
+
+                    <input
+                        type="checkbox"
+                        id="project-featured"
+                    >
+
+                    <span>
+                        Feature this project
+                    </span>
+
+                </label>
+
+
+                <label class="project-checkbox">
+
+                    <input
+                        type="checkbox"
+                        id="project-published"
+                    >
+
+                    <span>
+                        Publish this project on my portfolio
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <div
+                class="admin-form-message"
+                id="project-form-message"
+            ></div>
+
+
+            <div class="admin-modal-actions">
+
+                <button
+                    type="button"
+                    class="admin-btn admin-btn-secondary"
+                    id="project-cancel-btn"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="admin-btn admin-btn-primary"
+                    id="project-save-btn"
+                >
+                    <i class="bx bx-save"></i>
+                    Save Project
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- ==========================================
+     TESTIMONIAL MANAGEMENT
+========================================== -->
+
+<section class="admin-section" id="testimonial-management">
+
+    <div class="admin-section-header">
+
+        <div>
+            <span class="admin-section-label">
+                Client Feedback
+            </span>
+
+            <h2>Testimonials</h2>
+
+            <p>
+                Add, edit and manage client testimonials
+                displayed on your portfolio.
+            </p>
+        </div>
+
+        <button
+            type="button"
+            class="admin-btn admin-btn-primary"
+            id="add-testimonial-btn"
+        >
+            <i class="bx bx-plus"></i>
+            Add Testimonial
+        </button>
+
+    </div>
+
+
+    <div
+        class="testimonials-admin-container"
+        id="admin-testimonials"
+    >
+
+        <div class="admin-empty-state">
+
+            <i class="bx bx-message-square-detail"></i>
+
+            <h3>No testimonials yet</h3>
+
+            <p>
+                Add your first client testimonial to get started.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ==========================================
+     TESTIMONIAL MODAL
+========================================== -->
+
+<div
+    class="admin-modal"
+    id="testimonial-modal"
+    aria-hidden="true"
+>
+
+    <div class="admin-modal-content">
+
+        <div class="admin-modal-header">
+
+            <div>
+                <span class="admin-section-label">
+                    Client Feedback
+                </span>
+
+                <h2 id="testimonial-modal-title">
+                    Add Testimonial
+                </h2>
+            </div>
+
+            <button
+                type="button"
+                class="admin-modal-close"
+                id="testimonial-modal-close"
+                aria-label="Close testimonial form"
+            >
+                <i class="bx bx-x"></i>
+            </button>
+
+        </div>
+
+
+        <form id="testimonial-form">
+
+            <input
+                type="hidden"
+                id="testimonial-id"
+            >
+
+
+            <div class="admin-form-grid">
+
+                <div class="admin-form-group">
+
+                    <label for="testimonial-client-name">
+                        Client Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="testimonial-client-name"
+                        placeholder="e.g. John Doe"
+                        maxlength="100"
+                        required
+                    >
+
+                </div>
+
+
+                <div class="admin-form-group">
+
+                    <label for="testimonial-client-role">
+                        Client Role
+                    </label>
+
+                    <input
+                        type="text"
+                        id="testimonial-client-role"
+                        placeholder="e.g. Business Owner"
+                        maxlength="100"
+                    >
+
+                </div>
+
+
+                <div class="admin-form-group">
+
+                    <label for="testimonial-client-company">
+                        Company
+                    </label>
+
+                    <input
+                        type="text"
+                        id="testimonial-client-company"
+                        placeholder="e.g. ABC Company"
+                        maxlength="150"
+                    >
+
+                </div>
+
+
+                <div class="admin-form-group">
+
+                    <label for="testimonial-rating">
+                        Rating
+                    </label>
+
+                    <select id="testimonial-rating" required>
+
+                        <option value="5">
+                            5 Stars
+                        </option>
+
+                        <option value="4">
+                            4 Stars
+                        </option>
+
+                        <option value="3">
+                            3 Stars
+                        </option>
+
+                        <option value="2">
+                            2 Stars
+                        </option>
+
+                        <option value="1">
+                            1 Star
+                        </option>
+
+                    </select>
+
+                </div>
+
+            </div>
+
+
+            <div class="admin-form-group">
+
+                <label for="testimonial-text">
+                    Testimonial
+                </label>
+
+                <textarea
+                    id="testimonial-text"
+                    rows="6"
+                    maxlength="1000"
+                    placeholder="Enter the client's genuine feedback..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <label class="testimonial-publish-toggle">
+
+                <input
+                    type="checkbox"
+                    id="testimonial-published"
+                >
+
+                <span>
+                    Publish this testimonial on my portfolio
+                </span>
+
+            </label>
+
+
+            <div
+                class="admin-form-message"
+                id="testimonial-form-message"
+            ></div>
+
+
+            <div class="admin-modal-actions">
+
+                <button
+                    type="button"
+                    class="admin-btn admin-btn-secondary"
+                    id="testimonial-cancel-btn"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    class="admin-btn admin-btn-primary"
+                    id="testimonial-save-btn"
+                >
+                    <i class="bx bx-save"></i>
+                    Save Testimonial
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MESSAGE MODAL
+     ========================================================= -->
+
+<div
+    class="message-modal"
+    id="message-modal"
+>
+
+    <div class="message-modal-content">
+
+        <div class="message-modal-header">
+
+            <h2>
+                Message Details
+            </h2>
+
+            <button
+                type="button"
+                class="modal-close"
+                id="modal-close"
+                aria-label="Close message"
+            >
+                <i class="bx bx-x"></i>
+            </button>
+
+        </div>
+
+
+        <div id="message-details"></div>
+
+
+        <div class="modal-actions">
+
+            <button
+                type="button"
+                class="modal-action-btn"
+                id="mark-read-btn"
+            >
+                <i class="bx bx-envelope-open"></i>
+                Mark as Read
+            </button>
+
+            <button
+                type="button"
+                class="modal-action-btn"
+                id="mark-replied-btn"
+            >
+                <i class="bx bx-check-double"></i>
+                Mark as Replied
+            </button>
+
+            <button
+                type="button"
+                class="modal-action-btn"
+                id="archive-btn"
+            >
+                <i class="bx bx-archive"></i>
+                Archive
+            </button>
+
+            <a
+                href="#"
+                class="modal-action-btn"
+                id="reply-email-btn"
+            >
+                <i class="bx bx-reply"></i>
+                Reply by Email
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SUPABASE
+     ========================================================= -->
+
+<script
+    src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+></script>
+
+<script src="assets/JavaScript/supabase.js"></script>
+
+<script src="assets/JavaScript/script.js"></script>
+
+<script src="assets/JavaScript/admin-dashboard.js"></script>
+<script src="assets/JavaScript/admin-testimonials.js"></script>
+<script src="assets/JavaScript/admin-projects.js"></script>
+
+</body>
+</html>

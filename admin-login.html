@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Toyin Portfolio Admin Login"
+    >
+
+    <title>Admin Login | Toyin</title>
+
+    <!-- Google Font -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Boxicons -->
+    <link
+        href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Main CSS -->
+    <link
+        rel="stylesheet"
+        href="assets/css/style.css"
+    >
+
+    <style>
+        /* =====================================================
+           ADMIN LOGIN
+           ===================================================== */
+
+        .admin-login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem 1rem;
+            background: var(--background-color);
+        }
+
+        .admin-login-wrapper {
+            width: 100%;
+            max-width: 460px;
+        }
+
+        .admin-login-card {
+            padding: 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            background: var(--section-color);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+        }
+
+        .admin-login-logo {
+            display: block;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .admin-login-logo span {
+            color: var(--primary-color);
+        }
+
+        .admin-login-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 18px;
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+            font-size: 2rem;
+        }
+
+        .admin-login-heading {
+            margin-bottom: 0.5rem;
+            text-align: center;
+            font-size: 1.6rem;
+            color: var(--text-color);
+        }
+
+        .admin-login-description {
+            margin-bottom: 2rem;
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        .admin-form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .admin-form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-color);
+        }
+
+        .admin-input-wrapper {
+            position: relative;
+        }
+
+        .admin-input-wrapper > i:first-child {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .admin-input {
+            width: 100%;
+            padding: 0.95rem 1rem 0.95rem 2.8rem;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            outline: none;
+            background: var(--background-color);
+            color: var(--text-color);
+            font-family: inherit;
+            transition: 0.3s ease;
+        }
+
+        .admin-input:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 0.8rem;
+            top: 50%;
+            transform: translateY(-50%);
+            border: none;
+            background: transparent;
+            color: var(--text-light);
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+
+        .admin-submit {
+            width: 100%;
+            margin-top: 0.5rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .admin-submit:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        .admin-message {
+            display: none;
+            margin-bottom: 1rem;
+            padding: 0.9rem 1rem;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            line-height: 1.5;
+        }
+
+        .admin-message.success {
+            display: block;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.25);
+            color: #16a34a;
+        }
+
+        .admin-message.error {
+            display: block;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.25);
+            color: #dc2626;
+        }
+
+        .admin-back {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.4rem;
+            margin-top: 1.5rem;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            transition: 0.3s ease;
+        }
+
+        .admin-back:hover {
+            color: var(--primary-color);
+        }
+
+        @media (max-width: 480px) {
+
+            .admin-login-card {
+                padding: 1.8rem 1.3rem;
+                border-radius: 18px;
+            }
+
+            .admin-login-heading {
+                font-size: 1.35rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="admin-login-page">
+
+        <div class="admin-login-wrapper">
+
+            <div class="admin-login-card">
+
+                <a
+                    href="index.html"
+                    class="admin-login-logo"
+                >
+                    Toyin<span>.</span>
+                </a>
+
+                <div class="admin-login-icon">
+                    <i class="bx bx-lock-alt"></i>
+                </div>
+
+                <h1 class="admin-login-heading">
+                    Admin Login
+                </h1>
+
+                <p class="admin-login-description">
+                    Sign in to access your portfolio
+                    administration dashboard.
+                </p>
+
+                <div
+                    id="admin-message"
+                    class="admin-message"
+                    role="alert"
+                ></div>
+
+                <form id="admin-login-form">
+
+                    <div class="admin-form-group">
+
+                        <label for="admin-email">
+                            Email Address
+                        </label>
+
+                        <div class="admin-input-wrapper">
+
+                            <i class="bx bx-envelope"></i>
+
+                            <input
+                                type="email"
+                                id="admin-email"
+                                class="admin-input"
+                                placeholder="Enter your admin email"
+                                autocomplete="email"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="admin-form-group">
+
+                        <label for="admin-password">
+                            Password
+                        </label>
+
+                        <div class="admin-input-wrapper">
+
+                            <i class="bx bx-lock-alt"></i>
+
+                            <input
+                                type="password"
+                                id="admin-password"
+                                class="admin-input"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                required
+                            >
+
+                            <button
+                                type="button"
+                                class="password-toggle"
+                                id="password-toggle"
+                                aria-label="Show password"
+                            >
+                                <i class="bx bx-show"></i>
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary admin-submit"
+                        id="admin-submit"
+                    >
+                        <span>Sign In</span>
+                        <i class="bx bx-log-in"></i>
+                    </button>
+
+                </form>
+
+                <a
+                    href="index.html"
+                    class="admin-back"
+                >
+                    <i class="bx bx-left-arrow-alt"></i>
+                    Back to Portfolio
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- Supabase -->
+    <script
+        src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+    ></script>
+
+    <!-- Supabase Configuration -->
+    <script src="assets/JavaScript/supabase.js"></script>
+
+    <!-- Admin Authentication -->
+    <script src="assets/JavaScript/admin-auth.js"></script>
+
+</body>
+</html>
