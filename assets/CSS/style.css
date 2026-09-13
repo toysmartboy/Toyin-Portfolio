@@ -733,17 +733,22 @@ textarea {
     color: var(--primary-color);
 }
 
-.hero-image-placeholder i {
-    font-size: 5rem;
+
+.hero-image-placeholder img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 50%;
+    background: blue;
+    box-shadow:
+        0 10px 25px rgba(15, 23, 42, 0.15);
+    z-index: 999;
 }
 
-.hero-image-placeholder span {
-    font-size: 0.9rem;
 
-    font-weight: 600;
 
-    letter-spacing: 0.5px;
-}
+
+
 
 
 /*==================================================
